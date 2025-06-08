@@ -9,9 +9,7 @@ import SmallIcon from "@/asset/image/img_small_circle.svg";
 import BigIcon from "@/asset/image/img_big_circle.svg";
 
 const FormDialog = () => {
-  const url =
-    "https://script.google.com/macros/s/AKfycbz0uBinZB0moDyVVq95HXIYU8_-QDZDdp8-6tpy31sUUtkHEsieEmbPiEZB3vLBkd_I/exec";
-
+  const url = "/api/submit-form";
   const {
     register,
     handleSubmit,
@@ -21,33 +19,35 @@ const FormDialog = () => {
   } = useForm({});
 
   const onSubmit = async (data: any) => {
-    console.log("Form Data:", data);
-
     try {
-      // สร้าง FormData สำหรับ Google Apps Script
-      const formData = new FormData();
-      formData.append("companyName", data.companyName || "");
-      formData.append("department", data.department || "");
-      formData.append("position", data.position || "");
-      formData.append("fullname", data.fullname || "");
-      formData.append("country", data.country || "");
-      formData.append("phone", data.phone || "");
-      formData.append("email", data.email || "");
-      formData.append("url", data.url || "");
-      formData.append("companyProduct", data.companyProduct || "");
-      formData.append("inqueryContents", data.content || ""); // เปลี่ยนจาก data.content เป็น inqueryContents
-      formData.append("address", data.address || "");
-
       const response = await fetch(url, {
         method: "POST",
-        body: formData, // ใช้ FormData แทน JSON
-        mode: "no-cors", // สำคัญ! สำหรับ Google Apps Script
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          companyName: data.companyName,
+          department: data.department,
+          position: data.position,
+          fullname: data.fullname,
+          country: data.country,
+          phone: data.phone,
+          email: data.email,
+          url: data.url,
+          companyProduct: data.companyProduct,
+          inqueryContents: data.content,
+          address: data.address,
+        }),
       });
 
-      // เนื่องจากใช้ no-cors จะไม่สามารถอ่าน response ได้
-      // แต่ถ้า request ส่งได้แสดงว่าสำเร็จ
-      alert("ส่งข้อมูลสำเร็จ!");
-      reset(); // Clear form
+      const result = await response.json();
+
+      if (result.success) {
+        alert("ส่งข้อมูลสำเร็จ!");
+        reset();
+      } else {
+        alert("เกิดข้อผิดพลาด: " + result.message);
+      }
     } catch (error) {
       console.error("Error:", error);
       alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
