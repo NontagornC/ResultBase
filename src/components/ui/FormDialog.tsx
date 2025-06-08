@@ -9,6 +9,9 @@ import SmallIcon from "@/asset/image/img_small_circle.svg";
 import BigIcon from "@/asset/image/img_big_circle.svg";
 
 const FormDialog = () => {
+  const url =
+    "https://script.google.com/macros/s/AKfycbz0uBinZB0moDyVVq95HXIYU8_-QDZDdp8-6tpy31sUUtkHEsieEmbPiEZB3vLBkd_I/exec";
+
   const {
     register,
     handleSubmit,
@@ -17,8 +20,38 @@ const FormDialog = () => {
     watch,
   } = useForm({});
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log("Form Data:", data);
+
+    try {
+      // สร้าง FormData สำหรับ Google Apps Script
+      const formData = new FormData();
+      formData.append("companyName", data.companyName || "");
+      formData.append("department", data.department || "");
+      formData.append("position", data.position || "");
+      formData.append("fullname", data.fullname || "");
+      formData.append("country", data.country || "");
+      formData.append("phone", data.phone || "");
+      formData.append("email", data.email || "");
+      formData.append("url", data.url || "");
+      formData.append("companyProduct", data.companyProduct || "");
+      formData.append("inqueryContents", data.content || ""); // เปลี่ยนจาก data.content เป็น inqueryContents
+      formData.append("address", data.address || "");
+
+      const response = await fetch(url, {
+        method: "POST",
+        body: formData, // ใช้ FormData แทน JSON
+        mode: "no-cors", // สำคัญ! สำหรับ Google Apps Script
+      });
+
+      // เนื่องจากใช้ no-cors จะไม่สามารถอ่าน response ได้
+      // แต่ถ้า request ส่งได้แสดงว่าสำเร็จ
+      alert("ส่งข้อมูลสำเร็จ!");
+      reset(); // Clear form
+    } catch (error) {
+      console.error("Error:", error);
+      alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+    }
   };
 
   return (
@@ -65,10 +98,15 @@ const FormDialog = () => {
                 </span>
                 <input
                   type="text"
-                  {...register("companyName")}
+                  {...register("companyName", { required: true })}
                   className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
                   placeholder="Your Company"
                 />
+                {errors.companyName && (
+                  <span className="text-red-500 text-sm">
+                    Company name is required
+                  </span>
+                )}
               </FormInputWrapper>
 
               <FormInputWrapper>
@@ -99,10 +137,13 @@ const FormDialog = () => {
                 <span className="text-[18px] font-bold">Name-Lastname</span>
                 <input
                   type="text"
-                  {...register("fullname")}
+                  {...register("fullname", { required: true })}
                   className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
                   placeholder="Your name"
                 />
+                {errors.fullname && (
+                  <span className="text-red-500 text-sm">Name is required</span>
+                )}
               </FormInputWrapper>
 
               <FormInputWrapper>
@@ -135,10 +176,18 @@ const FormDialog = () => {
                 </span>
                 <input
                   type="email"
-                  {...register("email")}
+                  {...register("email", {
+                    required: true,
+                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  })}
                   className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
                   placeholder="Email"
                 />
+                {errors.email && (
+                  <span className="text-red-500 text-sm">
+                    Valid email is required
+                  </span>
+                )}
               </FormInputWrapper>
 
               <FormInputWrapper>
@@ -192,17 +241,21 @@ const FormDialog = () => {
               <div className="flex flex-col gap-1">
                 <span className="text-[18px] font-bold">Company Address</span>
                 <textarea
-                  name="company address"
-                  id="company-address"
-                  className="w-[313px] h-[92px] rounded-xl border-[2px] border-[#D9D9D9]"
-                ></textarea>
+                  {...register("address")}
+                  className="w-[313px] h-[92px] rounded-xl border-[2px] border-[#D9D9D9] p-3 focus:outline-none focus:border-[#1E2E5A] text-[#ADADAD] font-light text-[15px]"
+                  placeholder="Your company address"
+                />
               </div>
             </div>
           </form>
         </div>
 
         <div className="flex justify-start min-h-[102px] h-[102px] items-center bg-white px-[45px]">
-          <button className="flex items-center justify-center bg-black text-[#FFFFFF] w-[100px] h-[46px] font-bold rounded-xl">
+          <button
+            type="submit"
+            onClick={handleSubmit(onSubmit)}
+            className="flex items-center justify-center bg-black text-[#FFFFFF] w-[100px] h-[46px] font-bold rounded-xl hover:bg-gray-800 transition-colors"
+          >
             Submit
           </button>
         </div>
