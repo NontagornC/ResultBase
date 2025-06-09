@@ -6,7 +6,7 @@ const Layout = ({ children }: any) => {
   return (
     <div className="flex flex-col">
       <Navbar />
-      {children}
+      <div className="p-[65px]">{children}</div>
       <Footer />
     </div>
   );
