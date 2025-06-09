@@ -2,7 +2,6 @@
 
 import React from "react";
 import Dialog from "@mui/material/Dialog";
-import styled from "styled-components";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import SmallIcon from "@/asset/image/img_small_circle.svg";
@@ -68,48 +67,54 @@ const FormDialog = () => {
     <Dialog
       onClose={handleClose}
       open={isOpen}
+      maxWidth={false}
       sx={{
         "& .MuiDialog-paper": {
           borderRadius: "16px",
+          margin: { xs: "16px", sm: "32px" },
+          maxHeight: { xs: "calc(100vh - 32px)", sm: "calc(100vh - 64px)" },
+          width: { xs: "calc(100vw - 32px)", sm: "598px" },
+          maxWidth: { xs: "calc(100vw - 32px)", sm: "598px" },
         },
       }}
     >
-      <div className="w-[598px] h-[1692px] flex flex-col bg-[#1E2E5A] overflow-hidden">
+      <div className="w-full h-auto max-h-[80vh] sm:h-[1692px] sm:max-h-none flex flex-col bg-[#1E2E5A] overflow-hidden">
         {/* Fixed Header */}
-        <div className="flex max-h-[189px] h-[189px] w-full px-[45px] flex-col items-start justify-center flex-shrink-0 relative">
-          <span className="text-[48px] font-bold text-white z-10">
+        <div className="flex h-auto sm:max-h-[189px] sm:h-[189px] w-full px-4 sm:px-[45px] py-6 sm:py-0 flex-col items-start justify-center flex-shrink-0 relative">
+          <span className="text-2xl sm:text-3xl md:text-[48px] font-bold text-white z-10 leading-tight">
             Register
           </span>
-          <span className="text-[48px] font-bold text-white z-10">
+          <span className="text-2xl sm:text-3xl md:text-[48px] font-bold text-white z-10 leading-tight">
             For Exhibitors
           </span>
           <Image
             src={SmallIcon}
             alt="small icon"
-            className="absolute left-0 -bottom-[40px] z-0"
+            className="absolute left-0 -bottom-[20px] sm:-bottom-[40px] z-0 w-8 h-8 sm:w-auto sm:h-auto"
           />
           <Image
             src={BigIcon}
             alt="big icon"
-            className="absolute right-0 z-0"
+            className="absolute right-0 z-0 w-12 h-12 sm:w-auto sm:h-auto"
           />
         </div>
 
         {/* Scrollable Form Container */}
-        <div className="bg-white rounded-t-xl overflow-hidden max-h-[1010px] overflow-y-auto z-10">
+        <div className="bg-white rounded-t-xl overflow-hidden flex-1 sm:max-h-[1010px] overflow-y-auto z-10">
           <form
             onSubmit={handleSubmit(onSubmit)}
-            className="h-full px-[45px] pt-[60px] pb-[60px]"
+            className="h-full px-4 sm:px-[45px] pt-8 sm:pt-[60px] pb-8 sm:pb-[60px]"
           >
-            <div className="flex flex-col gap-[36px]">
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+            <div className="flex flex-col gap-6 sm:gap-[36px]">
+              {/* Company Name */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Company ( ชื่อบริษัท )
                 </span>
                 <input
                   type="text"
                   {...register("companyName", { required: true })}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your Company"
                 />
                 {errors.companyName && (
@@ -117,71 +122,79 @@ const FormDialog = () => {
                     Company name is required
                   </span>
                 )}
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Department */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Department ( แผนก )
                 </span>
                 <input
                   type="text"
                   {...register("department")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="department"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Position */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Position ( ตำแหน่ง )
                 </span>
                 <input
                   type="text"
                   {...register("position")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="position"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">Name-Lastname</span>
+              {/* Name */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
+                  Name-Lastname
+                </span>
                 <input
                   type="text"
                   {...register("fullname", { required: true })}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your name"
                 />
                 {errors.fullname && (
                   <span className="text-red-500 text-sm">Name is required</span>
                 )}
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Country */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Country ( ประเทศของคุณ )
                 </span>
                 <input
                   type="text"
                   {...register("country")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="country"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Phone */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Phone Number ( หมายเลขโทรศัพท์ )
                 </span>
                 <input
                   type="tel"
                   {...register("phone")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="+66-XXX-XXXXXX"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Email */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   E-mail ( อีเมลของคุณ )​
                 </span>
                 <input
@@ -190,7 +203,7 @@ const FormDialog = () => {
                     required: true,
                     pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   })}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Email"
                 />
                 {errors.email && (
@@ -198,61 +211,68 @@ const FormDialog = () => {
                     Valid email is required
                   </span>
                 )}
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Confirm Email */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   E-mail (Confirm) ( ยืนยันอีเมลอีกครั้ง )
                 </span>
                 <input
                   type="email"
                   {...register("confirmEmail")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Re-type your Email"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* URL */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   URL ( เว็บไซต์บริษัท )
                 </span>
                 <input
                   type="url"
                   {...register("url")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="URL"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Company Product */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Your company's product/service ( สินค้าหรือบริการของบริษัท )
                 </span>
                 <input
                   type="text"
                   {...register("companyProduct")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your company's product/service"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <FormInputWrapper>
-                <span className="text-[18px] font-bold">
+              {/* Inquiry Contents */}
+              <div className="flex flex-col gap-4 sm:gap-6 w-full">
+                <span className="text-base sm:text-[18px] font-bold">
                   Inquiry contents ( เนื้อหาการติดต่อ/สอบถาม ){" "}
                 </span>
                 <input
                   type="text"
                   {...register("content")}
-                  className="text-[#ADADAD] font-light text-[15px] w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A]"
+                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Inquiry contents"
                 />
-              </FormInputWrapper>
+              </div>
 
-              <div className="flex flex-col gap-1">
-                <span className="text-[18px] font-bold">Company Address</span>
+              {/* Address */}
+              <div className="flex flex-col gap-3 sm:gap-1">
+                <span className="text-base sm:text-[18px] font-bold">
+                  Company Address
+                </span>
                 <textarea
                   {...register("address")}
-                  className="w-[313px] h-[92px] rounded-xl border-[2px] border-[#D9D9D9] p-3 focus:outline-none focus:border-[#1E2E5A] text-[#ADADAD] font-light text-[15px]"
+                  className="w-full sm:w-[313px] h-20 sm:h-[92px] rounded-xl border-[2px] border-[#D9D9D9] p-3 focus:outline-none focus:border-[#1E2E5A] text-[#ADADAD] font-light text-sm sm:text-[15px] transition-colors resize-none"
                   placeholder="Your company address"
                 />
               </div>
@@ -260,11 +280,12 @@ const FormDialog = () => {
           </form>
         </div>
 
-        <div className="flex justify-start min-h-[102px] h-[102px] items-center bg-white px-[45px]">
+        {/* Submit Button Section */}
+        <div className="flex justify-start h-auto sm:min-h-[102px] sm:h-[102px] items-center bg-white px-4 sm:px-[45px] py-4 sm:py-0">
           <button
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            className="flex items-center justify-center bg-black text-[#FFFFFF] w-[100px] h-[46px] font-bold rounded-xl hover:bg-gray-800 transition-colors"
+            className="flex items-center justify-center bg-black text-[#FFFFFF] w-full sm:w-[100px] h-[46px] font-bold rounded-xl hover:bg-gray-800 transition-colors"
           >
             Submit
           </button>
@@ -275,10 +296,3 @@ const FormDialog = () => {
 };
 
 export default FormDialog;
-
-const FormInputWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  width: 100%;
-`;
