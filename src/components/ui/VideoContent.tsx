@@ -102,20 +102,9 @@ const event_data: EventData[] = [
 ];
 
 const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
-  // สร้าง responsive opts สำหรับ YouTube
-  const getResponsiveOpts = () => {
-    return {
-      ...opts,
-      height: "auto", // ให้ YouTube ปรับตาม container
-      width: "100%",
-    };
-  };
-
   return (
     <div className="flex flex-col-reverse xl:flex-row w-full gap-4 lg:gap-4 h-fit">
-      {/* Video Player */}
       <div className="w-full lg:w-auto flex justify-center lg:items-end lg:flex-shrink-0">
-        {/* Mobile/Tablet: Responsive container */}
         <div className="w-full lg:w-auto">
           <div className="lg:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
             <YouTube
@@ -139,16 +128,13 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
         </div>
       </div>
 
-      {/* Event Information */}
       <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 flex-1">
-        {/* Logo */}
         <Image
           src={event.logo}
           alt={`${event.title} Logo`}
           className="self-center object-contain sm:h-[100px] sm:w-[200px] lg:h-[80px] lg:w-fit"
         />
 
-        {/* Content */}
         <div className="flex flex-col gap-1 sm:gap-2">
           <h2 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-gray-900 text-center lg:text-left">
             {event.title}
@@ -158,7 +144,6 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
             {event.description}
           </p>
 
-          {/* Event Details */}
           <div className="mt-2 sm:mt-3 lg:mt-4">
             <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base lg:text-lg text-gray-700">
               <li className="flex items-start justify-center lg:justify-start">
