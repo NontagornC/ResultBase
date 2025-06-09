@@ -3,6 +3,7 @@ import Image from "next/image";
 import MailIcon from "@/asset/image/img_email.svg";
 import FBIcon from "@/asset/image/img_fb.svg";
 import LineIcon from "@/asset/image/img_line.svg";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -18,9 +19,12 @@ const Footer = () => {
         </div>
       </div>
       <div className="flex flex-col gap-2 w-[331px]">
-        <div className="bg-[#DB2C37] w-[110px] h-[52px] flex justify-center items-center rounded-xl text-white">
+        <Link
+          href={"/about"}
+          className="bg-[#DB2C37] w-[110px] h-[52px] flex justify-center items-center rounded-xl text-white"
+        >
           Contact
-        </div>
+        </Link>
         <div className="flex flex-col text-white truncate">
           <span className="w-full break-words line-clamp-1">
             projects@results-base.com​
