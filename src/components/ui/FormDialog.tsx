@@ -12,7 +12,7 @@ const FormDialog = () => {
   const url = "/api/submit-form";
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isOpen = searchParams.get("register") === "true"; // เช็คว่า URL มี ?register=true หรือไม่
+  const isOpen = searchParams.get("register") === "true";
   const {
     register,
     handleSubmit,
@@ -22,12 +22,15 @@ const FormDialog = () => {
 
   const onSubmit = async (data: any) => {
     try {
+      const actionId = searchParams.get("actionId") || "default";
+
       const response = await fetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          actionId: actionId,
           companyName: data.companyName,
           department: data.department,
           position: data.position,

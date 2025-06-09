@@ -3,6 +3,14 @@
 import { google } from "googleapis";
 import { NextRequest, NextResponse } from "next/server";
 
+const SHEET_MAPPING: Record<string, string> = {
+  sportec: "SPORTEC",
+  caferefjapan: "CAFERES JAPAN",
+  wellnesstokyo: "Wellness Tokyo",
+  leisurejapan: "Leisure & Outdoor Japan",
+  japanfoods: "Japan food week",
+};
+
 export async function POST(request: NextRequest) {
   try {
     const auth = new google.auth.GoogleAuth({
@@ -17,6 +25,7 @@ export async function POST(request: NextRequest) {
 
     const body = await request.json();
     const {
+      actionId,
       companyName,
       department,
       position,
@@ -30,10 +39,14 @@ export async function POST(request: NextRequest) {
       address,
     } = body;
 
+    // Get sheet name from actionId mapping
+    const sheetName = SHEET_MAPPING[actionId] || SHEET_MAPPING["default"];
+    const range = `${sheetName}!A:K`;
+
     //@ts-ignore
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "Sportec!A:K",
+      range: range,
       valueInputOption: "USER_ENTERED",
       resource: {
         values: [

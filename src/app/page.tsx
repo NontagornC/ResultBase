@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import LeftVectorIcon from "@/asset/image/img_left_vector.svg";
 import RightVectorIcon from "@/asset/image/img_right_vector.svg";
 import Image from "next/image";
-import { useRouter } from "next/navigation"; // เพิ่มบรรทัดนี้
+import { useRouter } from "next/navigation";
 
 // * Image Carousel
 import SportecImage from "@/asset/image/img_sportec.svg";
@@ -23,7 +23,7 @@ import { useRef } from "react";
 
 export default function Home() {
   const swiperRef = useRef<null>(null);
-  const router = useRouter(); // เพิ่มบรรทัดนี้
+  const router = useRouter();
 
   const handlePrev = () => {
     if (swiperRef.current && (swiperRef.current as any).swiper) {
