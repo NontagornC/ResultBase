@@ -14,6 +14,7 @@
     "@fontsource/prompt": "^5.2.6",
     "@mui/material": "^7.1.1",
     "googleapis": "^150.0.1",
+    "lucide-react": "^0.513.0",
     "next": "15.3.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
