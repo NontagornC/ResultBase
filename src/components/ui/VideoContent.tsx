@@ -81,7 +81,7 @@ const event_data: EventData[] = [
   },
   {
     id: "leisure-outdoor-japan",
-    videoId: "e_91wPVy-rM",
+    videoId: "F2d6uMJPi7I",
     logo: LeisureOutdoorJapanLogo,
     title: "Leisure & Outdoor Japan",
     description:
@@ -91,7 +91,7 @@ const event_data: EventData[] = [
   },
   {
     id: "japan-foods-week",
-    videoId: "e_91wPVy-rM",
+    videoId: "wG7oy4kOi1Y",
     logo: JapanFoodsWeekLogo,
     title: "Japan food week",
     description:
@@ -102,53 +102,82 @@ const event_data: EventData[] = [
 ];
 
 const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
+  // สร้าง responsive opts สำหรับ YouTube
+  const getResponsiveOpts = () => {
+    return {
+      ...opts,
+      height: "auto", // ให้ YouTube ปรับตาม container
+      width: "100%",
+    };
+  };
+
   return (
-    <div className="flex w-full gap-4 h-fit">
+    <div className="flex flex-col-reverse xl:flex-row w-full gap-4 lg:gap-4 h-fit">
       {/* Video Player */}
-      <div className="flex items-end flex-shrink-0">
-        <YouTube
-          videoId={event.videoId}
-          opts={opts}
-          className="rounded-lg overflow-hidden"
-        />
+      <div className="w-full lg:w-auto flex justify-center lg:items-end lg:flex-shrink-0">
+        {/* Mobile/Tablet: Responsive container */}
+        <div className="w-full lg:w-auto">
+          <div className="lg:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
+            <YouTube
+              videoId={event.videoId}
+              opts={{
+                ...opts,
+                width: "100%",
+                height: "100%",
+              }}
+              className="absolute top-0 left-0 w-full h-full"
+            />
+          </div>
+
+          <div className="hidden lg:block pt-[80px]">
+            <YouTube
+              videoId={event.videoId}
+              opts={opts}
+              className="rounded-lg overflow-hidden"
+            />
+          </div>
+        </div>
       </div>
 
       {/* Event Information */}
-      <div className="h-full flex flex-col gap-4 flex-1">
+      <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 flex-1">
         {/* Logo */}
         <Image
           src={event.logo}
           alt={`${event.title} Logo`}
-          height={80}
-          className="self-center object-contain"
+          className="self-center object-contain sm:h-[100px] sm:w-[200px] lg:h-[80px] lg:w-fit"
         />
 
         {/* Content */}
-        <div className="flex flex-col gap-2">
-          <h2 className="text-[32px] font-medium text-gray-900">
+        <div className="flex flex-col gap-1 sm:gap-2">
+          <h2 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-gray-900 text-center lg:text-left">
             {event.title}
           </h2>
 
-          <p className="text-[22px] font-light text-gray-700 leading-relaxed">
+          <p className="text-sm sm:text-base lg:text-[22px] font-light text-gray-700 leading-relaxed text-center lg:text-left">
             {event.description}
           </p>
 
           {/* Event Details */}
-          <div className="mt-4">
-            <ul className="space-y-2 text-lg text-gray-700">
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>
+          <div className="mt-2 sm:mt-3 lg:mt-4">
+            <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base lg:text-lg text-gray-700">
+              <li className="flex items-start justify-center lg:justify-start">
+                <span className="mr-2 mt-1 lg:mt-0">•</span>
+                <span className="text-center lg:text-left">
                   <span className="font-medium">วันที่จัดงาน:</span>{" "}
-                  {event.date}
+                  <span className="block sm:inline lg:inline">
+                    {event.date}
+                  </span>
                 </span>
               </li>
 
-              <li className="flex items-start">
-                <span className="mr-2">•</span>
-                <span>
+              <li className="flex items-start justify-center lg:justify-start">
+                <span className="mr-2 mt-1 lg:mt-0">•</span>
+                <span className="text-center lg:text-left">
                   <span className="font-medium">สถานที่จัดงาน:</span>{" "}
-                  {event.location}
+                  <span className="block sm:inline lg:inline">
+                    {event.location}
+                  </span>
                 </span>
               </li>
             </ul>
@@ -161,7 +190,7 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
 
 const VideoContent: React.FC = () => {
   return (
-    <div className="flex flex-col w-full gap-[65px]">
+    <div className="flex flex-col w-full gap-8 sm:gap-12 lg:gap-[65px]">
       {event_data?.map((event) => (
         <VideoItem key={event.id} event={event} opts={YOUTUBE_OPTS} />
       ))}

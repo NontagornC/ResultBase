@@ -146,27 +146,30 @@ export default function Home() {
           </button>
         </div>
 
-        <div className="mt-[56px] flex justify-between">
-          <div className="flex flex-col w-[595px] gap-5">
-            <span className="text-[48px] font-medium">Exhibitions</span>
-            <span className="text-[20px] font-light">
-              <span className="font-semibold">Result Base Co., Ltd. </span>
+        <div className="mt-8 sm:mt-12 md:mt-[56px] flex flex-col lg:flex-row gap-8 lg:gap-12 xl:justify-between">
+          <div className="flex flex-col w-full lg:w-[48%] xl:w-[595px] gap-3 sm:gap-4 md:gap-5">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48px] font-medium leading-tight">
+              Exhibitions
+            </h2>
+            <div className="text-sm sm:text-base md:text-lg lg:text-[20px] font-light leading-relaxed">
+              <span className="font-semibold">Result Base Co., Ltd. </span>
               is the Exclusive Sales Representative in Thailand for a series of
               international exhibitions organized by TSO International. We
               support Thai businesses in accessing global opportunities through
               participation in leading trade shows across health, wellness,
               sports, leisure, and food industries.
-            </span>
+            </div>
           </div>
-          <div className="flex flex-col w-[595px] gap-4">
-            <span className="text-[48px] font-medium">
+
+          <div className="flex flex-col w-full lg:w-[48%] xl:w-[595px] gap-3 sm:gap-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-[48px] font-medium leading-tight">
               งานนิทรรศการแสดงสินค้า
-            </span>
-            <div className="flex flex-col">
-              <span className="text-[20px] font-semibold">
-                บริษัท รีซัลท์ เบส จำกัด (Result Base Co., Ltd.){" "}
+            </h2>
+            <div className="flex flex-col gap-2">
+              <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-semibold">
+                บริษัท รีซัลท์ เบส จำกัด (Result Base Co., Ltd.)
               </span>
-              <span className="text-[20px] font-light">
+              <span className="text-sm sm:text-base md:text-lg lg:text-[20px] font-light leading-relaxed">
                 เป็นตัวแทนจำหน่ายอย่างเป็นทางการในประเทศไทย
                 สำหรับงานแสดงสินค้านานาชาติที่จัดโดย TSO International
                 ประเทศญี่ปุ่น
@@ -177,7 +180,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="mt-[160px]">
+        <div className="xl:mt-[160px] lg:mt-[100px] mt-[20px]">
           <VideoContent />
         </div>
       </div>

@@ -6,40 +6,51 @@ import Image from "next/image";
 import ExhibitionsImg from "@/asset/image/img_exhibitions.png";
 import EventImg from "@/asset/image/img_event.png";
 import ConstructionImg from "@/asset/image/img_construction.png";
-import styled from "styled-components";
 
 const page = () => {
+  const sections = [
+    {
+      title: "Exhibitions",
+      image: ExhibitionsImg,
+      alt: "ExhibitionsImg",
+    },
+    {
+      title: "Event Activation",
+      image: EventImg,
+      alt: "EventImg",
+    },
+    {
+      title: "Design & Construction",
+      image: ConstructionImg,
+      alt: "ConstructionImg",
+    },
+  ];
+
   return (
     <Layout>
-      <div className="w-full flex flex-col gap-[80px]">
-        <div className="flex flex-col items-center gap-[80px]">
-          <HeaderSpan>Exhibitions</HeaderSpan>
-          <Image
-            src={ExhibitionsImg}
-            alt="ExhibitionsImg"
-            className="object-cover"
-          />
-        </div>
-        <div className="flex flex-col items-center gap-[80px]">
-          <HeaderSpan>Event Activation</HeaderSpan>
-          <Image src={EventImg} alt="EventImg" className="object-cover" />
-        </div>
-        <div className="flex flex-col items-center gap-[80px]">
-          <HeaderSpan>Design & Construction</HeaderSpan>
-          <Image
-            src={ConstructionImg}
-            alt="ConstructionImg"
-            className="object-cover"
-          />
-        </div>
+      <div className="w-full flex flex-col gap-12 sm:gap-16 md:gap-20 lg:gap-[80px]">
+        {sections.map((section, index) => (
+          <div
+            key={index}
+            className="flex flex-col items-center gap-8 sm:gap-12 md:gap-16 lg:gap-[80px]"
+          >
+            <h1 className="font-medium text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-[100px] text-center leading-tight px-4">
+              {section.title}
+            </h1>
+
+            <div className="w-full flex justify-center">
+              <Image
+                src={section.image}
+                alt={section.alt}
+                className="w-full max-w-full h-auto object-cover rounded-lg md:rounded-xl lg:rounded-2xl shadow-lg"
+                priority={index === 0}
+              />
+            </div>
+          </div>
+        ))}
       </div>
     </Layout>
   );
 };
 
 export default page;
-
-const HeaderSpan = styled.span`
-  font-weight: 500;
-  font-size: 100px;
-`;

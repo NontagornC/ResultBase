@@ -8,14 +8,18 @@ import ContactForm from "@/components/ui/ContactForm";
 const page = () => {
   return (
     <Layout>
-      <div className="pt-[35px] flex gap-[64px] items-start">
-        <div className="min-w-[624px] flex flex-col pt-[40px] gap-[57px]">
+      <div className="pt-4 md:pt-[35px] flex flex-col lg:flex-row gap-8 md:gap-12 lg:gap-[64px] items-start">
+        <div className="w-full lg:min-w-[624px] flex flex-col pt-4 md:pt-[40px] gap-8 md:gap-12 xl:gap-[57px]">
           <div className="flex flex-col gap-4">
-            <span className="font-bold text-[64px] text-black">About</span>
-            <span className="text-[24px] text-[#828282]">
+            <span className="font-bold text-4xl sm:text-5xl md:text-6xl xl:text-[64px] text-black">
+              About
+            </span>
+
+            <span className="text-lg sm:text-xl md:text-2xl xl:text-[24px] text-[#828282]">
               Result Base Co., Ltd.
             </span>
-            <div className="text-[20px] font-medium space-y-4">
+
+            <div className="text-base sm:text-lg md:text-xl xl:text-[20px] font-medium space-y-4 md:space-y-6">
               <p>
                 Result Base Co., Ltd. is a full-service event organizer
                 specializing in exhibitions, conferences, seminars, media
@@ -46,9 +50,17 @@ const page = () => {
               </p>
             </div>
           </div>
+
           <ContactForm />
         </div>
-        <Image src={ResultBase} alt="Sportec Background" />
+
+        <div className="hidden xl:flex xl:w-auto justify-center xl:justify-start flex-shrink-0">
+          <Image
+            src={ResultBase}
+            alt="Sportec Background"
+            className="w-full max-w-md lg:max-w-lg xl:max-w-none h-auto"
+          />
+        </div>
       </div>
     </Layout>
   );
