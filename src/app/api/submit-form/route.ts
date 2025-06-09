@@ -33,7 +33,7 @@ export async function POST(request: NextRequest) {
     //@ts-ignore
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "Sheet1!A:K",
+      range: "Sportec!A:K",
       valueInputOption: "USER_ENTERED",
       resource: {
         values: [

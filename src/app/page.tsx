@@ -1,103 +1,181 @@
+"use client";
+import Layout from "@/components/layout/Layout";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import LeftVectorIcon from "@/asset/image/img_left_vector.svg";
+import RightVectorIcon from "@/asset/image/img_right_vector.svg";
 import Image from "next/image";
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+// * Image Carousel
+import SportecImage from "@/asset/image/img_sportec.svg";
+import CafeRefJapan from "@/asset/image/img_cafe_res_japan.svg";
+import WellnessTokyo from "@/asset/image/img_wellness_tokyo.svg";
+import LeisureJapan from "@/asset/image/img_leisure_japan.svg";
+import JapanFoods from "@/asset/image/img_japan_foods.svg";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+import VideoContent from "@/components/ui/VideoContent";
+
+import { useRef } from "react";
+
+export default function Home() {
+  const swiperRef = useRef<null>(null);
+
+  const handlePrev = () => {
+    if (swiperRef.current && (swiperRef.current as any).swiper) {
+      (swiperRef.current as any).swiper.slidePrev();
+    }
+  };
+
+  const handleNext = () => {
+    if (swiperRef.current && (swiperRef.current as any).swiper) {
+      (swiperRef.current as any).swiper.slideNext();
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="flex flex-col">
+        {/* <FormDialog /> */}
+
+        <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+          <Swiper
+            ref={swiperRef}
+            modules={[Pagination]}
+            slidesPerView={1}
+            navigation={{
+              prevEl: ".custom-prev",
+              nextEl: ".custom-next",
+            }}
+            pagination={{ clickable: true }}
+          >
+            <SwiperSlide>
+              <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+                <Image
+                  src={SportecImage}
+                  alt="Sportec Background"
+                  fill
+                  className="object-cover"
+                />
+                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
+                  JOIN asd
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+                <Image
+                  src={CafeRefJapan}
+                  alt="CafeRefJapan"
+                  fill
+                  className="object-cover"
+                />
+                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
+                  JOIN asd
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+                <Image
+                  src={WellnessTokyo}
+                  alt="WellnessTokyo"
+                  fill
+                  className="object-cover"
+                />
+                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
+                  JOIN asd
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+                <Image
+                  src={LeisureJapan}
+                  alt="LeisureJapan"
+                  fill
+                  className="object-cover"
+                />
+                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
+                  JOIN asd
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
+                <Image
+                  src={JapanFoods}
+                  alt="JapanFoods"
+                  fill
+                  className="object-cover"
+                />
+                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
+                  JOIN asd
+                </div>
+              </div>
+            </SwiperSlide>
+          </Swiper>
+
+          <button
+            onClick={handlePrev}
+            className="custom-prev cursor-pointer absolute left-4 top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
             <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
+              src={LeftVectorIcon}
+              alt="Previous"
+              className="drop-shadow-lg"
             />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="custom-next cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
-            Read our docs
-          </a>
+            <Image
+              src={RightVectorIcon}
+              alt="Next"
+              className="drop-shadow-lg"
+            />
+          </button>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        <div className="mt-[56px] flex justify-between">
+          <div className="flex flex-col w-[595px] gap-5">
+            <span className="text-[48px] font-medium">Exhibitions</span>
+            <span className="text-[20px] font-light">
+              <span className="font-semibold">Result Base Co., Ltd. </span>
+              is the Exclusive Sales Representative in Thailand for a series of
+              international exhibitions organized by TSO International. We
+              support Thai businesses in accessing global opportunities through
+              participation in leading trade shows across health, wellness,
+              sports, leisure, and food industries.
+            </span>
+          </div>
+          <div className="flex flex-col w-[595px] gap-4">
+            <span className="text-[48px] font-medium">
+              งานนิทรรศการแสดงสินค้า
+            </span>
+            <div className="flex flex-col">
+              <span className="text-[20px] font-semibold">
+                บริษัท รีซัลท์ เบส จำกัด (Result Base Co., Ltd.){" "}
+              </span>
+              <span className="text-[20px] font-light">
+                เป็นตัวแทนจำหน่ายอย่างเป็นทางการในประเทศไทย
+                สำหรับงานแสดงสินค้านานาชาติที่จัดโดย TSO International
+                ประเทศญี่ปุ่น
+                เราสนับสนุนผู้ประกอบการไทยให้เข้าถึงโอกาสทางธุรกิจระดับโลก
+                ผ่านการเข้าร่วมงานแสดงสินค้าชั้นนำในอุตสาหกรรมสุขภาพ กีฬา เวลเนส
+                ไลฟ์สไตล์ และอาหาร​
+              </span>
+            </div>
+          </div>
+        </div>
+        <div className="mt-[160px]">
+          <VideoContent />
+        </div>
+      </div>
+    </Layout>
   );
 }
