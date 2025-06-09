@@ -33,9 +33,12 @@ const Navbar = () => {
         <Link href={"/portfolio"} className={getLinkClass("/portfolio")}>
           Portfolio
         </Link>
-        <div className="flex items-center justify-center bg-[#1B2B58] text-[#FFFFFF] w-[110px] h-[52px] rounded-xl font-medium text-[16px]">
+        <Link
+          href="?register=true"
+          className="flex cursor-pointer items-center justify-center bg-[#1B2B58] text-[#FFFFFF] w-[110px] h-[52px] rounded-xl font-medium text-[16px]"
+        >
           Contact
-        </div>
+        </Link>
       </div>
     </div>
   );

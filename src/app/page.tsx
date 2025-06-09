@@ -8,6 +8,7 @@ import "swiper/css/pagination";
 import LeftVectorIcon from "@/asset/image/img_left_vector.svg";
 import RightVectorIcon from "@/asset/image/img_right_vector.svg";
 import Image from "next/image";
+import { useRouter } from "next/navigation"; // เพิ่มบรรทัดนี้
 
 // * Image Carousel
 import SportecImage from "@/asset/image/img_sportec.svg";
@@ -22,6 +23,7 @@ import { useRef } from "react";
 
 export default function Home() {
   const swiperRef = useRef<null>(null);
+  const router = useRouter(); // เพิ่มบรรทัดนี้
 
   const handlePrev = () => {
     if (swiperRef.current && (swiperRef.current as any).swiper) {
@@ -54,23 +56,26 @@ export default function Home() {
             <SwiperSlide>
               <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
                 <Image
+                  onClick={() => {
+                    router.push("?register=true&actionId=sportec");
+                  }}
                   src={SportecImage}
                   alt="Sportec Background"
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
                 />
-                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
-                  JOIN asd
-                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
                 <Image
+                  onClick={() => {
+                    router.push("?register=true&actionId=caferefjapan");
+                  }}
                   src={CafeRefJapan}
                   alt="CafeRefJapan"
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
                 />
                 <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
                   JOIN asd
@@ -80,40 +85,40 @@ export default function Home() {
             <SwiperSlide>
               <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
                 <Image
+                  onClick={() => {
+                    router.push("?register=true&actionId=wellnesstokyo");
+                  }}
                   src={WellnessTokyo}
                   alt="WellnessTokyo"
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
                 />
-                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
-                  JOIN asd
-                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
                 <Image
+                  onClick={() => {
+                    router.push("?register=true&actionId=leisurejapan");
+                  }}
                   src={LeisureJapan}
                   alt="LeisureJapan"
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
                 />
-                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
-                  JOIN asd
-                </div>
               </div>
             </SwiperSlide>
             <SwiperSlide>
               <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
                 <Image
+                  onClick={() => {
+                    router.push("?register=true&actionId=japanfoods");
+                  }}
                   src={JapanFoods}
                   alt="JapanFoods"
                   fill
-                  className="object-cover"
+                  className="object-cover cursor-pointer"
                 />
-                <div className="w-[121px] absolute bottom-[80px] h-[68px] left-[50%] transform -translate-x-1/2 rounded-xl bg-green-300 text-white flex justify-center items-center text-[24px] font-medium !text-red-700">
-                  JOIN asd
-                </div>
               </div>
             </SwiperSlide>
           </Swiper>

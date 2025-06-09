@@ -7,15 +7,18 @@ import { useForm } from "react-hook-form";
 import Image from "next/image";
 import SmallIcon from "@/asset/image/img_small_circle.svg";
 import BigIcon from "@/asset/image/img_big_circle.svg";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const FormDialog = () => {
   const url = "/api/submit-form";
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const isOpen = searchParams.get("register") === "true"; // เช็คว่า URL มี ?register=true หรือไม่
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
-    watch,
   } = useForm({});
 
   const onSubmit = async (data: any) => {
@@ -54,10 +57,17 @@ const FormDialog = () => {
     }
   };
 
+  const handleClose = () => {
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.delete("register");
+    currentUrl.searchParams.delete("actionId");
+    router.push(currentUrl.pathname + currentUrl.search);
+  };
+
   return (
     <Dialog
-      onClose={() => {}}
-      open={true}
+      onClose={handleClose}
+      open={isOpen}
       sx={{
         "& .MuiDialog-paper": {
           borderRadius: "16px",
@@ -66,7 +76,7 @@ const FormDialog = () => {
     >
       <div className="w-[598px] h-[1692px] flex flex-col bg-[#1E2E5A] overflow-hidden">
         {/* Fixed Header */}
-        <div className="flex max-h-[189px] h-[189px] w-full px-[45px] flex-col items-start flex-shrink-0 relative">
+        <div className="flex max-h-[189px] h-[189px] w-full px-[45px] flex-col items-start justify-center flex-shrink-0 relative">
           <span className="text-[48px] font-bold text-white z-10">
             Register
           </span>

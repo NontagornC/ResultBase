@@ -13,9 +13,9 @@ const Footer = () => {
           Join us on Social Media
         </span>
         <div className="flex items-center gap-4">
-          <Image src={MailIcon} alt="Mail Logo" />
-          <Image src={FBIcon} alt="Facebook Logo" />
-          <Image src={LineIcon} alt="line Logo" />
+          <Image src={MailIcon} alt="Mail Logo" className="cursor-pointer" />
+          <Image src={FBIcon} alt="Facebook Logo" className="cursor-pointer" />
+          <Image src={LineIcon} alt="line Logo" className="cursor-pointer" />
         </div>
       </div>
       <div className="flex flex-col gap-2 w-[331px]">
