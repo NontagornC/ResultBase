@@ -8,6 +8,7 @@ import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const pathname = usePathname();
+  console.log(pathname, "pathname");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getLinkClass = (href: string) => {
@@ -18,9 +19,9 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { href: "/about", label: "About us" },
+    { href: "/about/", label: "About us" },
     { href: "/", label: "Exhibition" },
-    { href: "/portfolio", label: "Portfolio" },
+    { href: "/portfolio/", label: "Portfolio" },
   ];
 
   return (
