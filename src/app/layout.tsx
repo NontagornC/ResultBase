@@ -95,12 +95,12 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon-16x16.png",
-    apple: "/apple-touch-icon.png",
+    icon: "/img_rb_logo.png",
+    shortcut: "/img_rb_logo.png",
+    apple: "/img_rb_logo.png",
     other: {
       rel: "apple-touch-icon-precomposed",
-      url: "/apple-touch-icon-precomposed.png",
+      url: "/img_rb_logo.png",
     },
   },
   manifest: "/site.webmanifest",
