@@ -47,7 +47,6 @@ const YOUTUBE_OPTS = {
   },
 };
 
-// Event data
 const event_data: EventData[] = [
   {
     id: "sportec",
@@ -104,11 +103,11 @@ const event_data: EventData[] = [
 const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
   return (
     <div className="flex flex-col-reverse xl:flex-row w-full xl:gap-8 2xl:gap-10 gap-4 lg:gap-4 h-fit">
-      <div className="w-full lg:w-3/4 2xl:w-1/2 flex justify-center lg:items-end">
-        <div className="w-full">
+      <div className="w-full lg:w-full 2xl:w-1/2 flex justify-center lg:items-end">
+        <div className="w-full md:max-w-[740px] xl:max-w-none">
           <div className="xl:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
             <YouTube
-              videoId={event.videoId}
+              videoId={event?.videoId}
               opts={{
                 ...opts,
                 width: "100%",
@@ -119,9 +118,9 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
           </div>
 
           <div className="hidden xl:block pt-[80px]">
-            <div className="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden max-w-none">
+            <div className="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
               <YouTube
-                videoId={event.videoId}
+                videoId={event?.videoId}
                 opts={{
                   ...opts,
                   width: "100%",
@@ -134,43 +133,45 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
         </div>
       </div>
 
-      <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 xl:flex-1 xl:min-w-[350px] xl:w-[450px] 2xl:w-full">
+      <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 xl:flex-1 xl:min-w-[524px] xl:w-[524px] 2xl:w-full">
         <Image
-          src={event.logo}
-          alt={`${event.title} Logo`}
+          src={event?.logo}
+          alt={`${event?.title} Logo`}
           className="self-center object-contain sm:h-[100px] sm:w-[200px] lg:h-[80px] lg:w-fit"
         />
 
         <div className="flex flex-col gap-1 sm:gap-2">
           <h2 className="text-xl sm:text-2xl lg:text-[32px] font-medium text-gray-900 text-center lg:text-left">
-            {event.title}
+            {event?.title}
           </h2>
 
-          <p className="text-sm sm:text-base lg:text-[22px] font-light text-gray-700 leading-[1.5] text-center lg:text-left">
-            {event.description}
-          </p>
+          <div className="flex flex-col">
+            <p className="text-sm sm:text-base lg:text-[22px] font-light text-gray-700 leading-[1.5] text-center lg:text-left">
+              {event?.description}
+            </p>
 
-          <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base lg:text-lg text-gray-700">
-            <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 leading-[1.5] text-center">
-              <span className="mr-2 mt-1 lg:mt-0">•</span>
-              <span className="text-center lg:text-left">
-                <span className="font-normal">วันที่จัดงาน:</span>{" "}
-                <span className="block sm:inline lg:inline  font-light">
-                  {event.date}
+            <ul className="text-sm sm:text-base lg:text-lg text-gray-700">
+              <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 text-center">
+                <span className="mr-2 mt-1 lg:mt-0 hidden sm:block">•</span>
+                <span className="text-center lg:text-left">
+                  <span className="font-normal">วันที่จัดงาน:</span>{" "}
+                  <span className="block sm:inline lg:inline font-light">
+                    {event?.date}
+                  </span>
                 </span>
-              </span>
-            </div>
+              </div>
 
-            <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 leading-[1.5] text-center">
-              <span className="mr-2 mt-1 lg:mt-0">•</span>
-              <span className="text-center lg:text-left">
-                <span className="font-normal">สถานที่จัดงาน:</span>{" "}
-                <span className="block sm:inline lg:inline  font-light">
-                  {event.location}
+              <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700  text-center">
+                <span className="mr-2 mt-1 lg:mt-0 hidden sm:block">•</span>
+                <span className="text-center lg:text-left">
+                  <span className="font-normal">สถานที่จัดงาน:</span>{" "}
+                  <span className="block sm:inline lg:inline font-light">
+                    {event?.location}
+                  </span>
                 </span>
-              </span>
-            </div>
-          </ul>
+              </div>
+            </ul>
+          </div>
         </div>
       </div>
     </div>

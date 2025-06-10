@@ -12,7 +12,7 @@ const FormDialog = () => {
   const url = "/api/submit-form";
   const router = useRouter();
   const searchParams = useSearchParams();
-  const isOpen = searchParams.get("register") === "true";
+  const isOpen = searchParams?.get("register") === "true";
   const {
     register,
     handleSubmit,
@@ -22,7 +22,7 @@ const FormDialog = () => {
 
   const onSubmit = async (data: any) => {
     try {
-      const actionId = searchParams.get("actionId") || "default";
+      const actionId = searchParams?.get("actionId") || "default";
 
       const response = await fetch(url, {
         method: "POST",
@@ -31,27 +31,27 @@ const FormDialog = () => {
         },
         body: JSON.stringify({
           actionId: actionId,
-          companyName: data.companyName,
-          department: data.department,
-          position: data.position,
-          fullname: data.fullname,
-          country: data.country,
-          phone: data.phone,
-          email: data.email,
-          url: data.url,
-          companyProduct: data.companyProduct,
-          inqueryContents: data.content,
-          address: data.address,
+          companyName: data?.companyName,
+          department: data?.department,
+          position: data?.position,
+          fullname: data?.fullname,
+          country: data?.country,
+          phone: data?.phone,
+          email: data?.email,
+          url: data?.url,
+          companyProduct: data?.companyProduct,
+          inqueryContents: data?.content,
+          address: data?.address,
         }),
       });
 
-      const result = await response.json();
+      const result = await response?.json();
 
       if (result.success) {
         alert("ส่งข้อมูลสำเร็จ!");
         reset();
       } else {
-        alert("เกิดข้อผิดพลาด: " + result.message);
+        alert("เกิดข้อผิดพลาด: " + result?.message);
       }
     } catch (error) {
       console.error("Error:", error);
@@ -60,10 +60,10 @@ const FormDialog = () => {
   };
 
   const handleClose = () => {
-    const currentUrl = new URL(window.location.href);
-    currentUrl.searchParams.delete("register");
-    currentUrl.searchParams.delete("actionId");
-    router.push(currentUrl.pathname + currentUrl.search);
+    const currentUrl = new URL(window?.location?.href);
+    currentUrl?.searchParams.delete("register");
+    currentUrl?.searchParams.delete("actionId");
+    router.push(currentUrl?.pathname + currentUrl?.search);
   };
 
   return (
@@ -81,7 +81,7 @@ const FormDialog = () => {
         },
       }}
     >
-      <div className="w-full h-auto max-h-[80vh] sm:h-[1692px] sm:max-h-none flex flex-col bg-[#1E2E5A] overflow-hidden">
+      <div className="w-full h-auto max-h-[80vh] flex flex-col bg-[#1E2E5A] overflow-hidden">
         {/* Fixed Header */}
         <div className="flex h-auto sm:max-h-[189px] sm:h-[189px] w-full px-4 sm:px-[45px] py-6 sm:py-0 flex-col items-start justify-center flex-shrink-0 relative">
           <span className="text-2xl sm:text-3xl md:text-[48px] font-bold text-white z-10 leading-tight">
@@ -98,7 +98,7 @@ const FormDialog = () => {
           <Image
             src={BigIcon}
             alt="big icon"
-            className="absolute right-0 z-0 w-12 h-12 sm:w-auto sm:h-auto"
+            className="absolute right-0 z-0 w-12 h-12 hidden lg:block sm:w-auto sm:h-auto"
           />
         </div>
 

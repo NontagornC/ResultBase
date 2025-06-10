@@ -9,6 +9,8 @@ import LeftVectorIcon from "@/asset/image/img_left_vector.svg";
 import RightVectorIcon from "@/asset/image/img_right_vector.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import VideoContent from "@/components/ui/VideoContent";
+import { useRef } from "react";
 
 // * Image Carousel
 import SportecImage from "@/asset/image/img_sportec.png";
@@ -17,31 +19,25 @@ import WellnessTokyo from "@/asset/image/img_wellness_tokyo.png";
 import LeisureJapan from "@/asset/image/img_leisure_japan.png";
 import JapanFoods from "@/asset/image/img_japan_foods.png";
 
-import VideoContent from "@/components/ui/VideoContent";
-
-import { useRef } from "react";
-
 export default function Home() {
   const swiperRef = useRef<null>(null);
   const router = useRouter();
 
   const handlePrev = () => {
-    if (swiperRef.current && (swiperRef.current as any).swiper) {
-      (swiperRef.current as any).swiper.slidePrev();
+    if (swiperRef?.current && (swiperRef?.current as any)?.swiper) {
+      (swiperRef?.current as any)?.swiper?.slidePrev();
     }
   };
 
   const handleNext = () => {
-    if (swiperRef.current && (swiperRef.current as any).swiper) {
-      (swiperRef.current as any).swiper.slideNext();
+    if (swiperRef?.current && (swiperRef.current as any)?.swiper) {
+      (swiperRef?.current as any)?.swiper?.slideNext();
     }
   };
 
   return (
     <Layout>
       <div className="flex flex-col">
-        {/* <FormDialog /> */}
-
         <div className="w-full h-[574px] rounded-[22px] overflow-hidden relative">
           <Swiper
             ref={swiperRef}
@@ -59,7 +55,7 @@ export default function Home() {
                   src={SportecImage}
                   alt="Sportec Background"
                   fill
-                  className="sm:object-cover !object-contain"
+                  className="object-cover"
                 />
                 <div
                   onClick={() => {
@@ -147,7 +143,7 @@ export default function Home() {
 
           <button
             onClick={handlePrev}
-            className="custom-prev cursor-pointer absolute left-4 top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
+            className="custom-prev cursor-pointer absolute left-[26px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
             <Image
               src={LeftVectorIcon}
@@ -158,7 +154,7 @@ export default function Home() {
 
           <button
             onClick={handleNext}
-            className="custom-next cursor-pointer absolute right-4 top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
+            className="custom-next cursor-pointer absolute right-[26px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
             <Image
               src={RightVectorIcon}
