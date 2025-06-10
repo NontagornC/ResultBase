@@ -103,10 +103,10 @@ const event_data: EventData[] = [
 
 const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
   return (
-    <div className="flex flex-col-reverse xl:flex-row w-full gap-4 lg:gap-4 h-fit">
-      <div className="w-full lg:w-auto flex justify-center lg:items-end lg:flex-shrink-0">
-        <div className="w-full lg:w-auto">
-          <div className="lg:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
+    <div className="flex flex-col-reverse xl:flex-row w-full xl:gap-8 2xl:gap-10 gap-4 lg:gap-4 h-fit">
+      <div className="w-full lg:w-3/4 2xl:w-1/2 flex justify-center lg:items-end">
+        <div className="w-full">
+          <div className="xl:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
             <YouTube
               videoId={event.videoId}
               opts={{
@@ -118,17 +118,23 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
             />
           </div>
 
-          <div className="hidden lg:block pt-[80px]">
-            <YouTube
-              videoId={event.videoId}
-              opts={opts}
-              className="rounded-lg overflow-hidden"
-            />
+          <div className="hidden xl:block pt-[80px]">
+            <div className="relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden max-w-none">
+              <YouTube
+                videoId={event.videoId}
+                opts={{
+                  ...opts,
+                  width: "100%",
+                  height: "100%",
+                }}
+                className="absolute top-0 left-0 w-full h-full"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 flex-1">
+      <div className="h-full flex flex-col gap-2 sm:gap-3 lg:gap-4 xl:flex-1 xl:min-w-[350px] xl:w-[450px] 2xl:w-full">
         <Image
           src={event.logo}
           alt={`${event.title} Logo`}
@@ -140,33 +146,31 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
             {event.title}
           </h2>
 
-          <p className="text-sm sm:text-base lg:text-[22px] font-light text-gray-700 leading-relaxed text-center lg:text-left">
+          <p className="text-sm sm:text-base lg:text-[22px] font-light text-gray-700 leading-[1.5] text-center lg:text-left">
             {event.description}
           </p>
 
-          <div className="mt-2 sm:mt-3 lg:mt-4">
-            <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base lg:text-lg text-gray-700">
-              <li className="flex items-start justify-center lg:justify-start">
-                <span className="mr-2 mt-1 lg:mt-0">•</span>
-                <span className="text-center lg:text-left">
-                  <span className="font-medium">วันที่จัดงาน:</span>{" "}
-                  <span className="block sm:inline lg:inline">
-                    {event.date}
-                  </span>
+          <ul className="space-y-1 sm:space-y-2 text-sm sm:text-base lg:text-lg text-gray-700">
+            <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 leading-[1.5] text-center">
+              <span className="mr-2 mt-1 lg:mt-0">•</span>
+              <span className="text-center lg:text-left">
+                <span className="font-normal">วันที่จัดงาน:</span>{" "}
+                <span className="block sm:inline lg:inline  font-light">
+                  {event.date}
                 </span>
-              </li>
+              </span>
+            </div>
 
-              <li className="flex items-start justify-center lg:justify-start">
-                <span className="mr-2 mt-1 lg:mt-0">•</span>
-                <span className="text-center lg:text-left">
-                  <span className="font-medium">สถานที่จัดงาน:</span>{" "}
-                  <span className="block sm:inline lg:inline">
-                    {event.location}
-                  </span>
+            <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 leading-[1.5] text-center">
+              <span className="mr-2 mt-1 lg:mt-0">•</span>
+              <span className="text-center lg:text-left">
+                <span className="font-normal">สถานที่จัดงาน:</span>{" "}
+                <span className="block sm:inline lg:inline  font-light">
+                  {event.location}
                 </span>
-              </li>
-            </ul>
-          </div>
+              </span>
+            </div>
+          </ul>
         </div>
       </div>
     </div>
