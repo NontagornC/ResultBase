@@ -1,16 +1,32 @@
 import React from "react";
 import { useForm } from "react-hook-form";
 
+interface IContactFormType {
+  firstName: string;
+  lastName: string;
+  email: string;
+  message: string;
+}
+
 const ContactForm = () => {
   const url = "/api/submit-contact";
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm({});
+  const { register, handleSubmit, reset, watch } = useForm<IContactFormType>({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      message: "",
+    },
+  });
 
-  const onSubmit = async (data: any) => {
+  const watchedFields = watch(["firstName", "lastName", "email", "message"]);
+  const [firstName, lastName, email, message] = watchedFields;
+  const isFormValid = firstName && lastName && email && message;
+
+  const onSubmit = async (data: IContactFormType) => {
+    if (!isFormValid) {
+      return;
+    }
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -18,14 +34,14 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          message: data.message,
+          firstName: data?.firstName,
+          lastName: data?.lastName,
+          email: data?.email,
+          message: data?.message,
         }),
       });
 
-      const result = await response.json();
+      const result = await response?.json();
 
       if (result.success) {
         alert("ส่งข้อมูลสำเร็จ!");
@@ -51,7 +67,9 @@ const ContactForm = () => {
         {/* Name Fields */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
           <div className="flex flex-col gap-2">
-            <span className="font-medium text-sm md:text-base">First name</span>
+            <span className="font-medium text-sm md:text-base">
+              First name <span className="text-red-600">*</span>
+            </span>
             <input
               placeholder="Jane"
               {...register("firstName", { required: true })}
@@ -60,7 +78,9 @@ const ContactForm = () => {
             />
           </div>
           <div className="flex flex-col gap-2">
-            <span className="font-medium text-sm md:text-base">Last name</span>
+            <span className="font-medium text-sm md:text-base">
+              Last name <span className="text-red-600">*</span>
+            </span>
             <input
               {...register("lastName", { required: true })}
               placeholder="Smitherton"
@@ -73,7 +93,7 @@ const ContactForm = () => {
         {/* Email Field */}
         <div className="flex flex-col gap-2">
           <span className="font-medium text-sm md:text-base">
-            Email address
+            Email address <span className="text-red-600">*</span>
           </span>
           <input
             type="email"
@@ -85,7 +105,9 @@ const ContactForm = () => {
 
         {/* Message Field */}
         <div className="flex flex-col gap-2">
-          <span className="font-medium text-sm md:text-base">Your message</span>
+          <span className="font-medium text-sm md:text-base">
+            Your message <span className="text-red-600">*</span>
+          </span>
           <textarea
             {...register("message", { required: true })}
             placeholder="Enter your question or message"
@@ -96,8 +118,13 @@ const ContactForm = () => {
         {/* Submit Button */}
         <button
           type="submit"
+          disabled={!isFormValid}
           onClick={handleSubmit(onSubmit)}
-          className="rounded-lg md:rounded-xl bg-black hover:bg-gray-800 text-white w-full h-12 md:h-14 xl:h-[62px] flex justify-center items-center font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+          className={`rounded-lg md:rounded-xl w-full h-12 md:h-14 xl:h-[62px] flex justify-center items-center font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 ${
+            isFormValid
+              ? "bg-black hover:bg-gray-800 text-white cursor-pointer focus:ring-gray-500"
+              : "bg-gray-300 text-gray-100 cursor-not-allowed"
+          }`}
         >
           Submit
         </button>

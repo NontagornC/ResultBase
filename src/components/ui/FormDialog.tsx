@@ -1,12 +1,27 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React from "react";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
 import SmallIcon from "@/asset/image/img_small_circle.svg";
 import BigIcon from "@/asset/image/img_big_circle.svg";
 import { useRouter, useSearchParams } from "next/navigation";
+
+interface IFormDialog {
+  companyName: string;
+  department: string;
+  position: string;
+  fullname: string;
+  country: string;
+  phone: string;
+  email: string;
+  confirmEmail: string;
+  url: string;
+  companyProduct: string;
+  content: string;
+  address: string;
+}
 
 const FormDialog = () => {
   const url = "/api/submit-form";
@@ -19,7 +34,7 @@ const FormDialog = () => {
     formState: { errors },
     reset,
     watch,
-  } = useForm({
+  } = useForm<IFormDialog>({
     defaultValues: {
       companyName: "",
       department: "",
@@ -47,16 +62,12 @@ const FormDialog = () => {
   const [companyName, fullname, phone, email, confirmEmail, content] =
     watchedFields;
 
-  useEffect(() => {
-    console.log(watchedFields, "watchedFields");
-  }, [watchedFields]);
-
   const isRequiredFieldsComplete =
     companyName && fullname && phone && email && content;
   const isEmailMatching = email && confirmEmail && email === confirmEmail;
   const isFormValid = isRequiredFieldsComplete && isEmailMatching;
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: IFormDialog) => {
     if (!isFormValid) {
       return;
     }
