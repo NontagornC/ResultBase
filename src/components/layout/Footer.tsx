@@ -54,7 +54,7 @@ const Footer = () => {
       {/* Contact Section */}
       <div className="flex flex-col gap-3 md:gap-2 w-full md:w-[331px] text-center md:text-left">
         <Link
-          href="?register=true"
+          href="/about"
           className="bg-[#DB2C37] hover:bg-[#c02329] w-full md:w-[110px] h-[45px] md:h-[52px] flex justify-center items-center rounded-xl text-white font-medium transition-colors mx-auto md:mx-0"
         >
           Contact

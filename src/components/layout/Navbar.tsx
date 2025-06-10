@@ -43,7 +43,7 @@ const Navbar = () => {
           </Link>
         ))}
         <Link
-          href="?register=true"
+          href="/about"
           className="flex cursor-pointer items-center justify-center bg-[#1B2B58] hover:bg-[#243a6b] text-[#FFFFFF] w-[100px] md:w-[110px] h-[45px] md:h-[52px] rounded-xl font-medium text-sm md:text-[16px] transition-colors"
         >
           Contact
