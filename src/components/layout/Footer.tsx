@@ -15,7 +15,7 @@ const Footer = () => {
         </h3>
         <div className="flex items-center justify-center md:justify-start gap-4">
           <a
-            href="mailto:projects@results-base.com"
+            href="mailto:prinkproy.mnw@results-base.com"
             className="hover:opacity-80 transition-opacity cursor-pointer"
           >
             <Image
@@ -25,7 +25,7 @@ const Footer = () => {
             />
           </a>
           <a
-            href="https://www.facebook.com/resultsbase"
+            href="https://www.facebook.com/profile.php?id=61576568222207"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80 transition-opacity cursor-pointer"
@@ -37,7 +37,7 @@ const Footer = () => {
             />
           </a>
           <a
-            href="https://line.me/ti/p/@848pxphc"
+            href="https://lin.ee/dkYo13A"
             target="_blank"
             rel="noopener noreferrer"
             className="hover:opacity-80 transition-opacity cursor-pointer"
