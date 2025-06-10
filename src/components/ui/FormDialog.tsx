@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -18,9 +18,48 @@ const FormDialog = () => {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm({});
+    watch,
+  } = useForm({
+    defaultValues: {
+      companyName: "",
+      department: "",
+      position: "",
+      fullname: "",
+      country: "",
+      phone: "",
+      email: "",
+      confirmEmail: "",
+      url: "",
+      companyProduct: "",
+      content: "",
+      address: "",
+    },
+  });
+
+  const watchedFields = watch([
+    "companyName",
+    "fullname",
+    "phone",
+    "email",
+    "confirmEmail",
+    "content",
+  ]);
+  const [companyName, fullname, phone, email, confirmEmail, content] =
+    watchedFields;
+
+  useEffect(() => {
+    console.log(watchedFields, "watchedFields");
+  }, [watchedFields]);
+
+  const isRequiredFieldsComplete =
+    companyName && fullname && phone && email && content;
+  const isEmailMatching = email && confirmEmail && email === confirmEmail;
+  const isFormValid = isRequiredFieldsComplete && isEmailMatching;
 
   const onSubmit = async (data: any) => {
+    if (!isFormValid) {
+      return;
+    }
     try {
       const actionId = searchParams?.get("actionId") || "default";
 
@@ -112,12 +151,12 @@ const FormDialog = () => {
               {/* Company Name */}
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
-                  Company ( ชื่อบริษัท )
+                  Company ( ชื่อบริษัท ) <span className="text-red-600">*</span>
                 </span>
                 <input
                   type="text"
                   {...register("companyName", { required: true })}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your Company"
                 />
                 {errors.companyName && (
@@ -135,7 +174,7 @@ const FormDialog = () => {
                 <input
                   type="text"
                   {...register("department")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="department"
                 />
               </div>
@@ -148,7 +187,7 @@ const FormDialog = () => {
                 <input
                   type="text"
                   {...register("position")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="position"
                 />
               </div>
@@ -156,12 +195,12 @@ const FormDialog = () => {
               {/* Name */}
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
-                  Name-Lastname
+                  Name-Lastname <span className="text-red-600">*</span>
                 </span>
                 <input
                   type="text"
                   {...register("fullname", { required: true })}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your name"
                 />
                 {errors.fullname && (
@@ -177,7 +216,7 @@ const FormDialog = () => {
                 <input
                   type="text"
                   {...register("country")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="country"
                 />
               </div>
@@ -185,12 +224,15 @@ const FormDialog = () => {
               {/* Phone */}
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
-                  Phone Number ( หมายเลขโทรศัพท์ )
+                  Phone Number ( หมายเลขโทรศัพท์ ){" "}
+                  <span className="text-red-600">*</span>
                 </span>
                 <input
-                  type="tel"
-                  {...register("phone")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  type="text"
+                  {...register("phone", {
+                    required: true,
+                  })}
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="+66-XXX-XXXXXX"
                 />
               </div>
@@ -198,15 +240,15 @@ const FormDialog = () => {
               {/* Email */}
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
-                  E-mail ( อีเมลของคุณ )​
+                  E-mail ( อีเมลของคุณ )​{" "}
+                  <span className="text-red-600">*</span>
                 </span>
                 <input
                   type="email"
                   {...register("email", {
                     required: true,
-                    pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                   })}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Email"
                 />
                 {errors.email && (
@@ -219,12 +261,15 @@ const FormDialog = () => {
               {/* Confirm Email */}
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
-                  E-mail (Confirm) ( ยืนยันอีเมลอีกครั้ง )
+                  E-mail (Confirm) ( ยืนยันอีเมลอีกครั้ง ){" "}
+                  <span className="text-red-600">*</span>
                 </span>
                 <input
                   type="email"
-                  {...register("confirmEmail")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  {...register("confirmEmail", {
+                    required: true,
+                  })}
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Re-type your Email"
                 />
               </div>
@@ -237,7 +282,7 @@ const FormDialog = () => {
                 <input
                   type="url"
                   {...register("url")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="URL"
                 />
               </div>
@@ -250,7 +295,7 @@ const FormDialog = () => {
                 <input
                   type="text"
                   {...register("companyProduct")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Your company's product/service"
                 />
               </div>
@@ -259,11 +304,14 @@ const FormDialog = () => {
               <div className="flex flex-col gap-4 sm:gap-6 w-full">
                 <span className="text-base sm:text-[18px] font-bold">
                   Inquiry contents ( เนื้อหาการติดต่อ/สอบถาม ){" "}
+                  <span className="text-red-600">*</span>
                 </span>
                 <input
                   type="text"
-                  {...register("content")}
-                  className="text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
+                  {...register("content", {
+                    required: true,
+                  })}
+                  className="text-black placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] w-full sm:w-[320px] border-b-[2px] border-[#adadad7f] pb-2 focus:outline-none focus:border-[#1E2E5A] transition-colors"
                   placeholder="Inquiry contents"
                 />
               </div>
@@ -275,7 +323,7 @@ const FormDialog = () => {
                 </span>
                 <textarea
                   {...register("address")}
-                  className="w-full sm:w-[313px] h-20 sm:h-[92px] rounded-xl border-[2px] border-[#D9D9D9] p-3 focus:outline-none focus:border-[#1E2E5A] text-[#ADADAD] font-light text-sm sm:text-[15px] transition-colors resize-none"
+                  className="w-full sm:w-[313px] text-black  h-20 sm:h-[92px] rounded-xl border-[2px] border-[#D9D9D9] p-3 focus:outline-none focus:border-[#1E2E5A] placeholder:text-[#ADADAD] font-light text-sm sm:text-[15px] transition-colors resize-none"
                   placeholder="Your company address"
                 />
               </div>
@@ -288,7 +336,12 @@ const FormDialog = () => {
           <button
             type="submit"
             onClick={handleSubmit(onSubmit)}
-            className="flex items-center justify-center bg-black text-[#FFFFFF] w-full sm:w-[100px] h-[46px] font-bold rounded-xl hover:bg-gray-800 transition-colors"
+            disabled={!isFormValid}
+            className={`flex items-center justify-center w-full sm:w-[100px] h-[46px] font-bold rounded-xl transition-all duration-300 ${
+              isFormValid
+                ? "bg-black text-white hover:bg-gray-800 cursor-pointer"
+                : "bg-gray-300 text-gray-100 cursor-not-allowed"
+            }`}
           >
             Submit
           </button>
