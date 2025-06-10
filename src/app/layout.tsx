@@ -104,22 +104,6 @@ export const metadata: Metadata = {
       "p:domain_verify": "your-pinterest-verification",
     },
   },
-  icons: {
-    icon: "/img_rb_logo.png",
-    shortcut: "/img_rb_logo.png",
-    apple: "/img_rb_logo.png",
-    other: {
-      rel: "apple-touch-icon-precomposed",
-      url: "/img_rb_logo.png",
-    },
-    media: {
-      "only screen and (max-width: 600px)": `${siteUrl}/mobile`,
-    },
-    types: {
-      "application/rss+xml": `${siteUrl}/rss.xml`,
-      "application/atom+xml": `${siteUrl}/atom.xml`,
-    },
-  },
 
   icons: {
     icon: [
