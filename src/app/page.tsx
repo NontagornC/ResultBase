@@ -19,6 +19,7 @@ import CafeRefJapan from "@/asset/image/img_cafe_res_japan.png";
 import WellnessTokyo from "@/asset/image/img_wellness_tokyo.png";
 import LeisureJapan from "@/asset/image/img_leisure_japan.png";
 import JapanFoods from "@/asset/image/img_japan_foods.png";
+import SkeletonLoading from "@/components/ui/SkeletonLoading";
 
 const HomeContent = () => {
   const swiperRef = useRef<null>(null);
@@ -213,7 +214,7 @@ const HomeContent = () => {
 
 export default function Home() {
   return (
-    <Suspense fallback={<div>Loading page...</div>}>
+    <Suspense fallback={<SkeletonLoading />}>
       <HomeContent />
     </Suspense>
   );
