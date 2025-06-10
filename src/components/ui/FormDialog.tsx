@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import Dialog from "@mui/material/Dialog";
 import { useForm } from "react-hook-form";
 import Image from "next/image";
@@ -25,7 +25,7 @@ interface IFormDialog {
   address: string;
 }
 
-const FormDialog = () => {
+const FormDialogContent = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const url = "/api/submit-form";
   const router = useRouter();
@@ -404,6 +404,23 @@ const FormDialog = () => {
         </div>
       </Dialog>
     </>
+  );
+};
+
+const FormDialogFallback = () => {
+  return (
+    <div className="flex items-center justify-center p-4">
+      <div className="loader" />
+    </div>
+  );
+};
+
+// Main component with Suspense wrapper
+const FormDialog = () => {
+  return (
+    <Suspense fallback={<FormDialogFallback />}>
+      <FormDialogContent />
+    </Suspense>
   );
 };
 

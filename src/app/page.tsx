@@ -10,7 +10,8 @@ import RightVectorIcon from "@/asset/image/img_right_vector.svg";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import VideoContent from "@/components/ui/VideoContent";
-import { useRef } from "react";
+import FormDialog from "@/components/ui/FormDialog";
+import { useRef, Suspense } from "react";
 
 // * Image Carousel
 import SportecImage from "@/asset/image/img_sportec.png";
@@ -19,7 +20,7 @@ import WellnessTokyo from "@/asset/image/img_wellness_tokyo.png";
 import LeisureJapan from "@/asset/image/img_leisure_japan.png";
 import JapanFoods from "@/asset/image/img_japan_foods.png";
 
-export default function Home() {
+const HomeContent = () => {
   const swiperRef = useRef<null>(null);
   const router = useRouter();
 
@@ -201,7 +202,19 @@ export default function Home() {
         <div className="xl:mt-[160px] lg:mt-[100px] mt-[20px]">
           <VideoContent />
         </div>
+
+        <Suspense fallback={<div>Loading...</div>}>
+          <FormDialog />
+        </Suspense>
       </div>
     </Layout>
+  );
+};
+
+export default function Home() {
+  return (
+    <Suspense fallback={<div>Loading page...</div>}>
+      <HomeContent />
+    </Suspense>
   );
 }
