@@ -181,7 +181,7 @@ const HomeContent = () => {
 
           <button
             onClick={handlePrev}
-            className="custom-prev cursor-pointer absolute left-[26px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
+            className="custom-prev cursor-pointer absolute left-[25px] sm:left-[50px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
             <Image
               src={LeftVectorIcon}
@@ -192,7 +192,7 @@ const HomeContent = () => {
 
           <button
             onClick={handleNext}
-            className="custom-next cursor-pointer absolute right-[26px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
+            className="custom-next cursor-pointer absolute right-[25px] sm:right-[50px] top-1/2 transform -translate-y-1/2 z-10 hover:scale-110 transition-transform"
           >
             <Image
               src={RightVectorIcon}
