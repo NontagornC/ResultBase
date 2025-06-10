@@ -2,6 +2,7 @@
 import React from "react";
 import YouTube from "react-youtube";
 import Image, { StaticImageData } from "next/image";
+import { motion } from "framer-motion";
 
 // * Logo images
 import SportecLogo from "@/asset/image/img_sportec_icon.svg";
@@ -33,6 +34,7 @@ interface VideoItemProps {
       fs: number;
     };
   };
+  index: number;
 }
 
 const YOUTUBE_OPTS = {
@@ -100,9 +102,30 @@ const event_data: EventData[] = [
   },
 ];
 
-const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
+const VideoItem: React.FC<VideoItemProps> = ({ event, opts, index }) => {
+  const isOdd = (index + 1) % 2 === 1;
+
   return (
-    <div className="flex flex-col-reverse xl:flex-row w-full xl:gap-8 2xl:gap-10 gap-4 lg:gap-4 h-fit">
+    <motion.div
+      initial={{
+        opacity: 0,
+        x: isOdd ? -100 : 100,
+      }}
+      whileInView={{
+        opacity: 1,
+        x: 0,
+      }}
+      transition={{
+        duration: 0.8,
+        delay: 0.2,
+        ease: "easeOut",
+      }}
+      viewport={{
+        once: true,
+        margin: "-100px",
+      }}
+      className="flex flex-col-reverse xl:flex-row w-full xl:gap-8 2xl:gap-10 gap-4 lg:gap-4 h-fit"
+    >
       <div className="w-full lg:w-full 2xl:w-1/2 flex justify-center lg:items-end">
         <div className="w-full md:max-w-[740px] xl:max-w-none">
           <div className="xl:hidden relative w-full h-0 pb-[56.25%] rounded-lg overflow-hidden">
@@ -161,7 +184,7 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
                 </span>
               </div>
 
-              <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700  text-center">
+              <div className="flex items-start justify-center lg:justify-start text-sm sm:text-base lg:text-[22px] text-gray-700 text-center">
                 <span className="mr-2 mt-1 lg:mt-0 hidden sm:block">•</span>
                 <span className="text-center lg:text-left">
                   <span className="font-normal">สถานที่จัดงาน:</span>{" "}
@@ -174,15 +197,20 @@ const VideoItem: React.FC<VideoItemProps> = ({ event, opts }) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
 const VideoContent: React.FC = () => {
   return (
     <div className="flex flex-col w-full gap-8 sm:gap-12 lg:gap-[65px]">
-      {event_data?.map((event) => (
-        <VideoItem key={event.id} event={event} opts={YOUTUBE_OPTS} />
+      {event_data?.map((event, index) => (
+        <VideoItem
+          key={event.id}
+          event={event}
+          opts={YOUTUBE_OPTS}
+          index={index}
+        />
       ))}
     </div>
   );
