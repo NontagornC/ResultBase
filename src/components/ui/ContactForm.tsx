@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+import Loading from "./Loading";
 
 interface IContactFormType {
   firstName: string;
@@ -9,6 +11,7 @@ interface IContactFormType {
 }
 
 const ContactForm = () => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const url = "/api/submit-contact";
   const { register, handleSubmit, reset, watch } = useForm<IContactFormType>({
     defaultValues: {
@@ -25,8 +28,12 @@ const ContactForm = () => {
 
   const onSubmit = async (data: IContactFormType) => {
     if (!isFormValid) {
+      toast.error("Please fill in all required fields");
       return;
     }
+
+    setIsSubmitting(true);
+
     try {
       const response = await fetch(url, {
         method: "POST",
@@ -34,29 +41,53 @@ const ContactForm = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          firstName: data?.firstName,
-          lastName: data?.lastName,
-          email: data?.email,
-          message: data?.message,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          message: data.message,
         }),
       });
 
-      const result = await response?.json();
+      const result = await response.json();
 
       if (result.success) {
-        alert("ส่งข้อมูลสำเร็จ!");
+        toast.success("Message sent successfully!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
         reset();
       } else {
-        alert("เกิดข้อผิดพลาด: " + result.message);
+        toast.error(`Failed to send message: ${result.message}`, {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("เกิดข้อผิดพลาดในการส่งข้อมูล");
+      toast.error("Something went wrong.", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
     <div className="w-full flex flex-col gap-6 md:gap-8">
+      <Loading open={isSubmitting} />
       {/* Title */}
       <span className="text-2xl md:text-3xl xl:text-[32px] font-semibold text-black">
         Contact me

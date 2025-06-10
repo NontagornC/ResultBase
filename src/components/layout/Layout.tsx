@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import FormDialog from "../ui/FormDialog";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Layout = ({ children }: any) => {
   return (
@@ -12,6 +14,18 @@ const Layout = ({ children }: any) => {
         {children}
       </main>
       <Footer />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
     </div>
   );
 };
