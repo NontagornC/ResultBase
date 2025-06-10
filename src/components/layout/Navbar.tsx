@@ -37,7 +37,7 @@ const Navbar = () => {
           <Link
             key={item.href}
             href={item.href}
-            className={getLinkClass(item.href)}
+            className={`${getLinkClass(item.href)} truncate`}
           >
             {item.label}
           </Link>
