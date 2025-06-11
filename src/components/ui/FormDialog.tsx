@@ -248,7 +248,8 @@ const FormDialogContent = () => {
                 {/* Name */}
                 <div className="flex flex-col gap-4 sm:gap-6 w-full">
                   <span className="text-base sm:text-[18px] font-bold">
-                    Name-Lastname <span className="text-red-600">*</span>
+                    Name-Lastname​ ( ชื่อ-นามสกุล ){" "}
+                    <span className="text-red-600">*</span>
                   </span>
                   <input
                     type="text"
@@ -295,7 +296,7 @@ const FormDialogContent = () => {
                 {/* Email */}
                 <div className="flex flex-col gap-4 sm:gap-6 w-full">
                   <span className="text-base sm:text-[18px] font-bold">
-                    E-mail ( อีเมลของคุณ )​{" "}
+                    E-mail ( อีเมลของคุณ )​​{" "}
                     <span className="text-red-600">*</span>
                   </span>
                   <input
@@ -374,7 +375,7 @@ const FormDialogContent = () => {
                 {/* Address */}
                 <div className="flex flex-col gap-3 sm:gap-1">
                   <span className="text-base sm:text-[18px] font-bold">
-                    Company Address
+                    Company Address ( ที่อยู่บริษัท )
                   </span>
                   <textarea
                     {...register("address")}
