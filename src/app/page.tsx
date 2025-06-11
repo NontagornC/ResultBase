@@ -68,12 +68,12 @@ const HomeContent = () => {
                             absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
                             flex justify-center items-center rounded-xl 
                             bg-black text-white font-medium cursor-pointer
-                            w-[85px]  h-[40px]  text-xs  
-                            sm:w-[100px] sm:h-[50px] sm:text-sm  
-                            md:w-[120px] md:h-[60px] md:text-base 
-                            lg:w-[140px] lg:h-[70px] lg:text-xl"
+                            w-[180px]  h-[40px] text-[13px]  md:text-[16px] lg:text-[20px] xl:text-[24px]  
+                            sm:w-[220px] sm:h-[50px] sm:text-sm  
+                            md:w-[260px] md:h-[60px] md:text-base 
+                            lg:w-[315px] lg:h-[70px] lg:text-xl"
                 >
-                  JOIN
+                  Inquires for Exhibitors
                 </div>
               </div>
             </SwiperSlide>
@@ -87,18 +87,18 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=caferefjapan");
+                    router.push("?register=true&actionId=sportec");
                   }}
                   className="
-                     absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
+                            absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
                             flex justify-center items-center rounded-xl 
                             bg-black text-white font-medium cursor-pointer
-                            w-[85px]  h-[40px]  text-xs  
-                            sm:w-[100px] sm:h-[50px] sm:text-sm  
-                            md:w-[120px] md:h-[60px] md:text-base 
-                            lg:w-[140px] lg:h-[70px] lg:text-xl"
+                            w-[180px]  h-[40px] text-[13px]  md:text-[16px] lg:text-[20px] xl:text-[24px]  
+                            sm:w-[220px] sm:h-[50px] sm:text-sm  
+                            md:w-[260px] md:h-[60px] md:text-base 
+                            lg:w-[315px] lg:h-[70px] lg:text-xl"
                 >
-                  JOIN
+                  Inquires for Exhibitors
                 </div>
               </div>
             </SwiperSlide>
@@ -112,18 +112,18 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=wellnesstokyo");
+                    router.push("?register=true&actionId=sportec");
                   }}
                   className="
-                                absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
+                            absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
                             flex justify-center items-center rounded-xl 
                             bg-black text-white font-medium cursor-pointer
-                            w-[85px]  h-[40px]  text-xs  
-                            sm:w-[100px] sm:h-[50px] sm:text-sm  
-                            md:w-[120px] md:h-[60px] md:text-base 
-                            lg:w-[140px] lg:h-[70px] lg:text-xl"
+                            w-[180px]  h-[40px] text-[13px]  md:text-[16px] lg:text-[20px] xl:text-[24px]  
+                            sm:w-[220px] sm:h-[50px] sm:text-sm  
+                            md:w-[260px] md:h-[60px] md:text-base 
+                            lg:w-[315px] lg:h-[70px] lg:text-xl"
                 >
-                  JOIN
+                  Inquires for Exhibitors
                 </div>
               </div>
             </SwiperSlide>
@@ -137,18 +137,18 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=leisurejapan");
+                    router.push("?register=true&actionId=sportec");
                   }}
                   className="
-                                absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
+                            absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
                             flex justify-center items-center rounded-xl 
                             bg-black text-white font-medium cursor-pointer
-                            w-[85px]  h-[40px]  text-xs  
-                            sm:w-[100px] sm:h-[50px] sm:text-sm  
-                            md:w-[120px] md:h-[60px] md:text-base 
-                            lg:w-[140px] lg:h-[70px] lg:text-xl"
+                            w-[180px]  h-[40px] text-[13px]  md:text-[16px] lg:text-[20px] xl:text-[24px]  
+                            sm:w-[220px] sm:h-[50px] sm:text-sm  
+                            md:w-[260px] md:h-[60px] md:text-base 
+                            lg:w-[315px] lg:h-[70px] lg:text-xl"
                 >
-                  JOIN
+                  Inquires for Exhibitors
                 </div>
               </div>
             </SwiperSlide>
@@ -162,18 +162,18 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=japanfoods");
+                    router.push("?register=true&actionId=sportec");
                   }}
                   className="
-                               absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
+                            absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
                             flex justify-center items-center rounded-xl 
                             bg-black text-white font-medium cursor-pointer
-                            w-[85px]  h-[40px]  text-xs  
-                            sm:w-[100px] sm:h-[50px] sm:text-sm  
-                            md:w-[120px] md:h-[60px] md:text-base 
-                            lg:w-[140px] lg:h-[70px] lg:text-xl"
+                            w-[180px]  h-[40px] text-[13px]  md:text-[16px] lg:text-[20px] xl:text-[24px]  
+                            sm:w-[220px] sm:h-[50px] sm:text-sm  
+                            md:w-[260px] md:h-[60px] md:text-base 
+                            lg:w-[315px] lg:h-[70px] lg:text-xl"
                 >
-                  JOIN
+                  Inquires for Exhibitors
                 </div>
               </div>
             </SwiperSlide>
