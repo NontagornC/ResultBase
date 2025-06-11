@@ -87,7 +87,7 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=sportec");
+                    router.push("?register=true&actionId=caferefjapan");
                   }}
                   className="
                             absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
@@ -112,7 +112,7 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=sportec");
+                    router.push("?register=true&actionId=wellnesstokyo");
                   }}
                   className="
                             absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
@@ -137,7 +137,7 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=sportec");
+                    router.push("?register=true&actionId=leisurejapan");
                   }}
                   className="
                             absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10
@@ -162,7 +162,7 @@ const HomeContent = () => {
                 />
                 <div
                   onClick={() => {
-                    router.push("?register=true&actionId=sportec");
+                    router.push("?register=true&actionId=japanfoods");
                   }}
                   className="
                             absolute bottom-[10%] sm:bottom-[15%] left-1/2 -translate-x-1/2 z-10

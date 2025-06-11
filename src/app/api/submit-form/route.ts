@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     } = body;
 
     // Get sheet name from actionId mapping
-    const sheetName = SHEET_MAPPING[actionId] || SHEET_MAPPING["default"];
+    const sheetName = SHEET_MAPPING[actionId];
     const range = `${sheetName}!A:K`;
 
     //@ts-ignore
@@ -71,6 +71,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       success: true,
       message: "ส่งข้อมูลสำเร็จ",
+      sheetName: sheetName,
+      actionId: actionId,
     });
   } catch (error) {
     console.error("Error:", error);

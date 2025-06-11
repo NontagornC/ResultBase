@@ -82,7 +82,7 @@ const FormDialogContent = () => {
     setIsSubmitting(true);
 
     try {
-      const actionId = searchParams?.get("actionId") || "default";
+      const actionId = searchParams?.get("actionId");
 
       const response = await fetch(url, {
         method: "POST",

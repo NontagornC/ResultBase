@@ -72,7 +72,7 @@ const Navbar = () => {
               </Link>
             ))}
             <Link
-              href="?register=true"
+              href="/about"
               className="flex cursor-pointer items-center justify-center bg-[#1B2B58] hover:bg-[#243a6b] text-[#FFFFFF] w-full h-[45px] rounded-xl font-medium text-sm transition-colors mt-4"
               onClick={() => setIsMenuOpen(false)}
             >
