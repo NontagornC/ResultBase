@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import Loading from "./Loading";
+import { GOOGLE_SCRIPT_URL } from "@/app/constants/sheet-mapping";
 
 interface IContactFormType {
   firstName: string;
@@ -35,44 +36,46 @@ const ContactForm = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(url, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          firstName: data.firstName,
-          lastName: data.lastName,
-          email: data.email,
-          message: data.message,
-        }),
+      // สร้าง FormData สำหรับส่งตรงไป Google Apps Script
+      const formData = new URLSearchParams();
+      formData.append("requestType", "contact");
+      formData.append("firstName", data.firstName || "");
+      formData.append("lastName", data.lastName || "");
+      formData.append("email", data.email || "");
+      formData.append("message", data.message || "");
+
+      console.log("Sending contact form directly to Google Apps Script...");
+      console.log("Data:", {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        hasMessage: !!data.message,
       });
 
-      const result = await response.json();
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: formData.toString(),
+        mode: "no-cors",
+      });
 
-      if (result.success) {
-        toast.success("Message sent successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        reset();
-      } else {
-        toast.error(`Failed to send message: ${result.message}`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      toast.success("Message sent successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      reset();
     } catch (error) {
       console.error("Error:", error);
-      toast.error("Something went wrong.", {
+      toast.error("Something went wrong. Please try again.", {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,

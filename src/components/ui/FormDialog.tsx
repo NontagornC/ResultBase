@@ -9,6 +9,7 @@ import BigIcon from "@/asset/image/img_big_circle.svg";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "react-toastify";
 import Loading from "./Loading";
+import { GOOGLE_SCRIPT_URL } from "@/app/constants/sheet-mapping";
 
 interface IFormDialog {
   companyName: string;
@@ -72,6 +73,8 @@ const FormDialogContent = () => {
   const isFormValid = isRequiredFieldsComplete && isEmailMatching;
 
   const onSubmit = async (data: IFormDialog) => {
+    console.log("Submitting form directly to Google Apps Script...");
+
     if (!isFormValid) {
       toast.error(
         "Please fill in all required fields and make sure emails match"
@@ -82,57 +85,54 @@ const FormDialogContent = () => {
     setIsSubmitting(true);
 
     try {
-      const actionId = searchParams?.get("actionId");
+      const actionId = searchParams?.get("actionId") || "sportec";
 
-      const response = await fetch(url, {
+      // สร้าง FormData สำหรับส่งตรงไป Google Apps Script
+      const formData = new URLSearchParams();
+      formData.append("requestType", "form");
+      formData.append("actionId", actionId);
+      formData.append("companyName", data.companyName || "");
+      formData.append("department", data.department || "");
+      formData.append("position", data.position || "");
+      formData.append("fullname", data.fullname || "");
+      formData.append("country", data.country || "");
+      formData.append("phone", data.phone || "");
+      formData.append("email", data.email || "");
+      formData.append("url", data.url || "");
+      formData.append("companyProduct", data.companyProduct || "");
+      formData.append("inqueryContents", data.content || "");
+      formData.append("address", data.address || "");
+
+      console.log("Sending data to:", GOOGLE_SCRIPT_URL);
+      console.log("ActionId:", actionId);
+
+      await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({
-          actionId: actionId,
-          companyName: data?.companyName,
-          department: data?.department,
-          position: data?.position,
-          fullname: data?.fullname,
-          country: data?.country,
-          phone: data?.phone,
-          email: data?.email,
-          url: data?.url,
-          companyProduct: data?.companyProduct,
-          inqueryContents: data?.content,
-          address: data?.address,
-        }),
+        body: formData.toString(),
+        mode: "no-cors",
       });
 
-      const result = await response?.json();
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      if (result.success) {
-        toast.success("Registration submitted successfully!", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-        reset();
-        setTimeout(() => {
-          handleClose();
-        }, 500);
-      } else {
-        toast.error(`Registration failed: ${result?.message}`, {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-        });
-      }
+      toast.success("Registration submitted successfully!", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
+
+      reset();
+      setTimeout(() => {
+        handleClose();
+      }, 500);
     } catch (error) {
       console.error("Error:", error);
-      toast.error(`Something went wrong.`, {
+      toast.error(`Something went wrong. Please try again.`, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
