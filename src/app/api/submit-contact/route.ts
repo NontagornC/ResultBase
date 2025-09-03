@@ -1,45 +1,115 @@
 // app/api/submit-contact/route.ts
-import { google } from "googleapis";
+
 import { NextRequest, NextResponse } from "next/server";
+import { GOOGLE_SCRIPT_URL } from "@/app/constants/sheet-mapping";
+
+// Type definition for contact data
+interface ContactData {
+  firstName?: string;
+  lastName?: string;
+  email?: string;
+  message?: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const auth = new google.auth.GoogleAuth({
-      credentials: {
-        client_email: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL,
-        private_key: process.env.GOOGLE_PRIVATE_KEY?.replace(/\\n/g, "\n"),
-      },
-      scopes: ["https://www.googleapis.com/auth/spreadsheets"],
-    });
-
-    const sheets = google.sheets({ version: "v4", auth });
-    const body = await request.json();
+    // Parse JSON body
+    const body: ContactData = await request.json();
     const { firstName, lastName, email, message } = body;
 
-    console.log("Appending to Contacts sheet, Range: Contacts!A:D");
+    console.log("Contact form submission:", {
+      firstName,
+      lastName,
+      email,
+      hasMessage: !!message,
+    });
 
-    // @ts-ignore
-    await sheets.spreadsheets.values.append({
-      spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: "Contacts!A:D",
-      valueInputOption: "USER_ENTERED",
-      resource: {
-        values: [[firstName || "", lastName || "", email || "", message || ""]],
+    // Validate required fields
+    if (!email) {
+      return NextResponse.json(
+        {
+          success: false,
+          message: "Email is required",
+        },
+        { status: 400 }
+      );
+    }
+
+    // Create form-encoded data for Google Apps Script
+    const formData = new URLSearchParams();
+
+    // Add request type (important for routing in Apps Script)
+    formData.append("requestType", "contact");
+
+    // Add contact form fields
+    formData.append("firstName", firstName || "");
+    formData.append("lastName", lastName || "");
+    formData.append("email", email);
+    formData.append("message", message || "");
+
+    // Add metadata
+    formData.append("timestamp", new Date().toISOString());
+    formData.append("source", "contact_form");
+
+    console.log("Sending contact to Google Apps Script...");
+
+    // Send to Google Apps Script
+    const response = await fetch(GOOGLE_SCRIPT_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
       },
+      body: formData.toString(),
+      redirect: "follow", // Important for Google Apps Script
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "ส่งข้อมูลสำเร็จ",
-      sheetName: "Contacts",
-    });
-  } catch (error) {
-    console.error("Error:", error);
+    console.log("Response status:", response.status);
+
+    // Parse response
+    let result;
+    try {
+      const responseText = await response.text();
+      console.log("Raw response:", responseText.substring(0, 200));
+      result = JSON.parse(responseText);
+    } catch (parseError) {
+      console.error("Failed to parse response:", parseError);
+
+      // If response is OK but can't parse, assume success
+      if (response.ok) {
+        return NextResponse.json({
+          success: true,
+          message: "ส่งข้อมูลสำเร็จ",
+          sheetName: "Contacts",
+        });
+      }
+
+      throw new Error("Invalid response from Google Apps Script");
+    }
+
+    console.log("Parsed response:", result);
+
+    // Check success
+    if (result.success) {
+      return NextResponse.json({
+        success: true,
+        message: "ส่งข้อมูลสำเร็จ",
+        sheetName: "Contacts",
+        timestamp: new Date().toISOString(),
+      });
+    } else {
+      throw new Error(
+        result.message || "Failed to submit contact to Google Sheets"
+      );
+    }
+  } catch (error: any) {
+    console.error("Error in submit-contact:", error);
+
     return NextResponse.json(
       {
         success: false,
         message: "เกิดข้อผิดพลาดในการส่งข้อมูล",
-        error: error instanceof Error ? error.message : "Unknown error",
+        error: error.message || "Unknown error",
+        timestamp: new Date().toISOString(),
       },
       { status: 500 }
     );

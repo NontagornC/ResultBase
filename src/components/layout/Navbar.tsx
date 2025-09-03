@@ -8,7 +8,6 @@ import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname, "pathname");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getLinkClass = (href: string) => {
